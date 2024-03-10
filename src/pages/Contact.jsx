@@ -1,8 +1,12 @@
 import  {  useState } from "react";
 import emailjs from "@emailjs/browser";
+import useAlert from "../hooks/useAlert";
+import Alert from "../components/Alert";
 const Contact = () => {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [isloading, setisLoading] = useState(false);
+  const {alert, showAlert, hideAlert} = useAlert();
+
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -24,14 +28,24 @@ const Contact = () => {
       import.meta.env.VITE_APP_EMAILJS_PUBLIC_KEY,
     ).then(()=>{
       setisLoading(false)
+      showAlert({show:true, text:"Message sent successfully!", type:'success'})
+
+      setTimeout(()=>{
+        setForm({name:"", email:"", message:""})
+        hideAlert();
+      },[3000])
+
     }).catch((error)=>{
       setisLoading(false);
       console.log(error)
+      showAlert({show:true, text:"I didn't receive your message", type:"danger"})
     })
   };
 
   return (
     <section className="relative flex lg:flex-row flex-col max-container h-[100%]">
+    {alert.show && <Alert {...alert}/>}
+    
       <div className="flex-1 min-w-[50%] flex flex-col">
         <h1 className="head-text">Get in Touch</h1>
         <form
