@@ -18,13 +18,13 @@ const Home = () => {
 
   useEffect(() => {
     const currentAudioRef = audioRef.current;
-  
+
     if (isPlayingMusic) {
       currentAudioRef.play();
     } else {
       currentAudioRef.pause();
     }
-  
+
     return () => {
       currentAudioRef.pause();
     };
@@ -43,7 +43,12 @@ const Home = () => {
   };
 
   const [islandScale, islandPosition, rotation] = adjustIslandForScreenSize();
-  console.log(window.innerWidth < 768)
+  let cameraPosition = [];
+  if (window.innerWidth < 768) {
+    cameraPosition = [25, 0, 15];
+  } else {
+    cameraPosition = [15, 0, 15];
+  }
   return (
     <>
       <section className="w-full h-screen flex items-center justify-center">
@@ -51,7 +56,7 @@ const Home = () => {
           className={`w-full h-screen bg-transparent ${
             isRotating ? "cursor-grabbing" : "cursor-grab"
           }`}
-          camera={{ position: [15, 0, 15], near: 0.1, far: 1000 }}
+          camera={{ position: cameraPosition, near: 0.1, far: 1000 }}
         >
           <Suspense fallback={<Loader />}>
             <directionalLight position={[1, 1, 1]} intensity={3} />
@@ -73,7 +78,7 @@ const Home = () => {
               maxPolarAngle={Math.PI / 2}
               // minPolarAngle={Math.PI / 2}
               minDistance={5} // Set the minimum zoom distance
-              maxDistance={window.innerWidth < 768 ? 50 :25}
+              maxDistance={window.innerWidth < 768 ? 50 : 25}
             />
           </Suspense>
         </Canvas>
