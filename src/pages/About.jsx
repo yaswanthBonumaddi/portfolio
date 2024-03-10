@@ -44,9 +44,10 @@ const About = () => {
         <h3 className="subhead-text">Work Experience</h3>
         <div className="mt-5 flex flex-col gap-3 text-slate-500">
           <p>
-            A passionate full-stack web developer on a mission to turn
-            innovative ideas into digital reality. Welcome to my virtual
-            playground where creativity meets functionality.
+            From building scalable systems for tech giants to fine-tuning
+            algorithms, I've embraced the dynamic world of full-stack
+            development. Join me on a quick tour of my experiences, where
+            simplicity meets innovation in every line of code.
           </p>
         </div>
         <div className="mt-12 flex">
@@ -98,13 +99,15 @@ const About = () => {
           </VerticalTimeline>
         </div>
       </div>
-      <hr className=" border-slate-200"/>
+      <hr className=" border-slate-200" />
       <section className="cta">
         <p className="cta-text">
-          Have a project in mind? <br className="sm:block hidden"/>
+          Have a project in mind? <br className="sm:block hidden" />
           Let's build something together!
         </p>
-        <Link to='/contact' className='btn'>contact</Link>
+        <Link to="/contact" className="btn">
+          contact
+        </Link>
       </section>
     </section>
   );
