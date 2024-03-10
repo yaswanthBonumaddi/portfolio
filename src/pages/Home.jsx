@@ -14,15 +14,20 @@ const Home = () => {
   audioRef.current.volume = 0.2;
   audioRef.current.loop = true;
   const [isRotating, setIsRotating] = useState(false);
-  const [currentStage, setCurrentStage] = useState(1);
   const [isPlayingMusic, setIsPlayingMusic] = useState(false);
 
   useEffect(() => {
+    const currentAudioRef = audioRef.current;
+  
     if (isPlayingMusic) {
-      audioRef.current.play();
+      currentAudioRef.play();
     } else {
-      audioRef.current.pause();
+      currentAudioRef.pause();
     }
+  
+    return () => {
+      currentAudioRef.pause();
+    };
   }, [isPlayingMusic]);
 
   const adjustIslandForScreenSize = () => {
@@ -38,7 +43,7 @@ const Home = () => {
   };
 
   const [islandScale, islandPosition, rotation] = adjustIslandForScreenSize();
-  console.log(currentStage);
+  console.log(window.innerWidth < 768)
   return (
     <>
       <section className="w-full h-screen flex items-center justify-center">
@@ -59,7 +64,6 @@ const Home = () => {
               rotation={rotation}
               isRotating={isRotating}
               setIsRotating={setIsRotating}
-              setCurrentStage={setCurrentStage}
             />
             <Dragon isRotating={isRotating} />
             <OrbitControls
@@ -69,7 +73,7 @@ const Home = () => {
               maxPolarAngle={Math.PI / 2}
               // minPolarAngle={Math.PI / 2}
               minDistance={5} // Set the minimum zoom distance
-              maxDistance={25}
+              maxDistance={window.innerWidth < 768 ? 50 :25}
             />
           </Suspense>
         </Canvas>
