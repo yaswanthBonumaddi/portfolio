@@ -21,8 +21,6 @@ import {
 } from "../assets/icons";
 
 
-
-
 export const skills = [
     {
         imageUrl: css,
