@@ -20,6 +20,9 @@ import {
     typescript
 } from "../assets/icons";
 
+
+
+
 export const skills = [
     {
         imageUrl: css,
